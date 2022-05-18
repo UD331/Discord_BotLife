@@ -4,8 +4,7 @@ import os
 import discord
 import random
 
-TOKEN = 'OTc1ODIyNjQ3Mzg2NTg3MTY2.GecGQQ.EKhnHTPE6TIyy2OlLLRltzeeEcVt6QYUuwcKiU'
-#GUILD = 'Test Server'
+TOKEN = 'Token'
 
 client = discord.Client()
 
