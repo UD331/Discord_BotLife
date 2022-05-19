@@ -1,16 +1,25 @@
 # bot.py
-import os
+import urllib.request
 
 import discord
 import random
+import urllib3
+import requests
+from bs4 import BeautifulSoup
 
-TOKEN = 'Token'
+TOKEN = 'OTc1ODIyNjQ3Mzg2NTg3MTY2.GecGQQ.EKhnHTPE6TIyy2OlLLRltzeeEcVt6QYUuwcKiU'
 
 client = discord.Client()
 
 @client.event
 async def on_ready():
     print(f'{client.user.name} has connected to Discord!')
+    url = 'https://animechan.vercel.app/api/random'
+    html = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(html, 'html.parser')
+    result = soup.get_text().split(':')
+    final = result[3].split('}')
+    print(final[0])
 
 @client.event
 async def on_message(message):
