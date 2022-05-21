@@ -33,4 +33,20 @@ async def on_message(message):
         final = result[3].split('}')
         await message.channel.send(final[0])
         return
+    elif user_message.lower() == '!anime_list':
+        url = 'https://animechan.vercel.app/api/available/anime'
+        html = urllib.request.urlopen(url).read()
+        soup = BeautifulSoup(html, 'html.parser')
+        result = soup.get_text().split(',')
+        for a in result:
+            if "[" in a:
+                b = a.split('[')
+                await message.channel.send(b[1])
+            elif "]" in a:
+                b = a.split(']')
+                await message.channel.send(b[0])
+            else:
+                await message.channel.send(a)
+        return
+
 client.run(TOKEN)
