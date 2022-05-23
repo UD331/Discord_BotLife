@@ -2,9 +2,6 @@
 import urllib.request
 
 import discord
-import random
-import urllib3
-import requests
 from bs4 import BeautifulSoup
 
 TOKEN = 'OTc1ODIyNjQ3Mzg2NTg3MTY2.GecGQQ.EKhnHTPE6TIyy2OlLLRltzeeEcVt6QYUuwcKiU'
@@ -51,32 +48,19 @@ async def on_message(message):
             else:
                 await message.channel.send(a)
         return
-    elif user_message == '!jojo_stands':
+    elif user_message.lower() == '!jojo_stands':
         await message.channel.send("!jojo- Random quotes from various anime."
+                                   "\n!jojo_jojo- 10 random quotes from various anime."
                                    "\n!anime_list- List of anime from which quotes are taken.")
-
-    for a in result:
-        if "[" in a:
-            b = a.split('[')
-            a = b[1]
-            if a.lower() in user_message.lower():
-                url = 'https://animechan.vercel.app/api/quotes/anime/title?=' + a;
-                html = urllib.request.urlopen(url).read()
-                soup = BeautifulSoup(html, 'html.parser')
-                print(soup[1])
-        elif "]" in a:
-            b = a.split(']')
-            a = b[0]
-            if a.lower() in user_message.lower():
-                url = 'https://animechan.vercel.app/api/quotes/anime/title?=' + a;
-                html = urllib.request.urlopen(url).read()
-                soup = BeautifulSoup(html, 'html.parser')
-                print(soup[1])
-        else:
-            if a.lower() in user_message.lower():
-                url = 'https://animechan.vercel.app/api/quotes/anime/title?=' + a;
-                html = urllib.request.urlopen(url).read()
-                soup = BeautifulSoup(html, 'html.parser')
-                print(soup[1])
-
+    elif user_message.lower() == '!jojo_jojo':
+        url = 'https://animechan.vercel.app/api/quotes'
+        html = urllib.request.urlopen(url).read()
+        soup = BeautifulSoup(html, 'html.parser')
+        result = soup.get_text().split(':')
+        for a in result:
+            final = a.split('}')
+            if ('anime' in final[0]) or ('character' in final[0]) or ('quote' in final[0]):
+                print()
+            else:
+                await message.channel.send(final[0])
 client.run(TOKEN)
