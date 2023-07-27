@@ -4,7 +4,7 @@ import random
 import discord
 from bs4 import BeautifulSoup
 
-TOKEN = 'OTc1ODIyNjQ3Mzg2NTg3MTY2.GecGQQ.EKhnHTPE6TIyy2OlLLRltzeeEcVt6QYUuwcKiU'
+TOKEN = 'API_KEY'
 
 client = discord.Client()
 
